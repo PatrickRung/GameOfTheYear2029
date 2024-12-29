@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dm48thbak1v3m"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_bysut"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tff8t"]
+
+[node name="Knife" type="Area3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1.45698, 0, 0, 0, 0.208165, 0, 0, 0, 0.536015, 0, 0, 0)
+mesh = SubResource("BoxMesh_bysut")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1.46039, 0, 0, 0, 0.204287, 0, 0, 0, 0.537421, 0, 0, 0)
+shape = SubResource("BoxShape3D_tff8t")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

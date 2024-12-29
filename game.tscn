@@ -1,0 +1,104 @@
+[gd_scene load_steps=12 format=3 uid="uid://d02deaimivk0"]
+
+[ext_resource type="Script" path="res://Scripts/Game.cs" id="1_8ii4x"]
+[ext_resource type="PackedScene" uid="uid://bl5i8yk70snux" path="res://player.tscn" id="2_kgmmf"]
+[ext_resource type="Texture2D" uid="uid://x2ugg854w345" path="res://Textures/icon.svg" id="3_u47sr"]
+[ext_resource type="Texture2D" uid="uid://cd2ab2gwleehi" path="res://Textures/maxresdefault.jpg" id="4_jsx35"]
+[ext_resource type="PackedScene" uid="uid://ddruo7ovobm37" path="res://health_pot.tscn" id="5_d234c"]
+[ext_resource type="PackedScene" uid="uid://ljhepes8o04v" path="res://enemy.tscn" id="6_ftiy3"]
+[ext_resource type="PackedScene" uid="uid://df4r8hetfpyxl" path="res://wall.tscn" id="7_gpeyy"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_vvtwc"]
+vertices = PackedVector3Array(-5.25, -1.23436, -10.5, -3.25, -1.23436, -10.5, -3.25, -1.23436, -24.5, -5.5, -1.23436, -9.75, -24.5, -1.23436, -24.5, -24.5, -1.23436, -9.75, 4.5, -1.23436, -10.5, 4.5, -1.23436, -24.5, 6.5, -1.23436, -10.5, 6.75, -1.23436, -9.75, 24.5, -1.23436, -9.75, 24.5, -1.23436, -24.5, -3.5, -1.23436, 6.5, -3.5, -1.23436, 5, -4.25, -1.23436, 4.75, -5.25, -1.23436, 6.5, -5.5, -1.23436, 7.5, -4.25, -1.23436, -6.75, -5.25, -1.23436, -8.75, -3.5, -1.23436, -7, -3.5, -1.23436, -8.75, -24.5, -1.23436, 7.5, 4.25, -1.23436, -8.75, 4.25, -1.23436, -7, 5, -1.23436, -6.75, 6.5, -1.23436, -8.75, 12.5, -1.23436, 3.75, 24.5, -1.23436, 4.75, 12.75, -1.23436, 4.75, 5, -1.23436, 3.75, -2.5, -1.23436, 4.75, -2.5, -1.23436, -6.75, 3.25, -1.23436, -6.75, 0.75, -1.23436, 3.75, 5, -1.23436, 6.5, 5.25, -1.23436, 5.5, 0.5, -1.23436, 5.25, 3.25, -1.23436, 3.75, 6.75, -1.23436, 6.75, 12.5, -1.23436, 5.5, 6.5, -1.23436, 8.25, 5, -1.23436, 8.25, 5.25, -1.23436, 24.5, 24.5, -1.23436, 24.5, -4, -1.23436, 24.5, -3.75, -1.23436, 8.25, -5.25, -1.23436, 8.25, -24.5, -1.23436, 24.5)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Array(2, 3, 5), PackedInt32Array(2, 5, 4), PackedInt32Array(2, 7, 1), PackedInt32Array(1, 7, 6), PackedInt32Array(8, 6, 7), PackedInt32Array(8, 7, 9), PackedInt32Array(9, 7, 10), PackedInt32Array(10, 7, 11), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 15), PackedInt32Array(15, 16, 17), PackedInt32Array(17, 16, 18), PackedInt32Array(19, 17, 20), PackedInt32Array(20, 17, 18), PackedInt32Array(18, 16, 3), PackedInt32Array(3, 16, 21), PackedInt32Array(3, 21, 5), PackedInt32Array(17, 14, 15), PackedInt32Array(23, 22, 24), PackedInt32Array(24, 22, 25), PackedInt32Array(27, 26, 10), PackedInt32Array(10, 26, 9), PackedInt32Array(26, 27, 28), PackedInt32Array(29, 24, 25), PackedInt32Array(25, 9, 29), PackedInt32Array(29, 9, 26), PackedInt32Array(12, 13, 30), PackedInt32Array(19, 20, 31), PackedInt32Array(31, 20, 32), PackedInt32Array(32, 20, 23), PackedInt32Array(23, 20, 22), PackedInt32Array(30, 31, 33), PackedInt32Array(33, 31, 32), PackedInt32Array(35, 34, 36), PackedInt32Array(36, 34, 12), PackedInt32Array(32, 37, 33), PackedInt32Array(33, 36, 30), PackedInt32Array(30, 36, 12), PackedInt32Array(34, 35, 38), PackedInt32Array(38, 35, 39), PackedInt32Array(42, 41, 40), PackedInt32Array(38, 39, 40), PackedInt32Array(40, 39, 27), PackedInt32Array(40, 27, 42), PackedInt32Array(42, 27, 43), PackedInt32Array(39, 28, 27), PackedInt32Array(46, 45, 44), PackedInt32Array(46, 44, 16), PackedInt32Array(16, 44, 21), PackedInt32Array(21, 44, 47), PackedInt32Array(45, 41, 44), PackedInt32Array(44, 41, 42)]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_nxae0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_6k7ke"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fir10"]
+albedo_color = Color(0.29219, 0.29219, 0.29219, 1)
+metallic = 1.0
+metallic_specular = 1.0
+
+[node name="Game" type="Node3D"]
+script = ExtResource("1_8ii4x")
+
+[node name="Player" parent="." instance=ExtResource("2_kgmmf")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Item1" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(57, 50)
+scale = Vector2(0.485, 0.485)
+texture = ExtResource("3_u47sr")
+
+[node name="Item2" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(133, 50)
+scale = Vector2(0.485, 0.485)
+texture = ExtResource("3_u47sr")
+
+[node name="Item3" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(209, 50)
+scale = Vector2(0.485, 0.485)
+texture = ExtResource("3_u47sr")
+
+[node name="Item4" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(285, 50)
+scale = Vector2(0.485, 0.485)
+texture = ExtResource("3_u47sr")
+
+[node name="Maxresdefault" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(1102, 53)
+scale = Vector2(0.391063, 0.343798)
+texture = ExtResource("4_jsx35")
+
+[node name="healthBar" type="ProgressBar" parent="CanvasLayer"]
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 30.0
+offset_top = -93.0
+offset_right = 154.465
+offset_bottom = -16.7
+grow_vertical = 0
+
+[node name="HealthPot" parent="." instance=ExtResource("5_d234c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.98615, -1.73634, -5.24943)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_vvtwc")
+
+[node name="Floor" type="StaticBody3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.73634, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Floor"]
+shape = SubResource("WorldBoundaryShape3D_nxae0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Floor"]
+transform = Transform3D(50, 0, 0, 0, 1, 0, 0, 0, 50, 0, -0.498018, 0)
+mesh = SubResource("BoxMesh_6k7ke")
+surface_material_override/0 = SubResource("StandardMaterial3D_fir10")
+
+[node name="Node3D" type="Node3D" parent="NavigationRegion3D"]
+
+[node name="wall" parent="NavigationRegion3D/Node3D" instance=ExtResource("7_gpeyy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.21416, -0.984654, -1)
+
+[node name="wall2" parent="NavigationRegion3D/Node3D" instance=ExtResource("7_gpeyy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.41479, -0.984654, -1)
+
+[node name="wall3" parent="NavigationRegion3D/Node3D" instance=ExtResource("7_gpeyy")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.67188, -0.984654, -9.74101)
+
+[node name="wall4" parent="NavigationRegion3D/Node3D" instance=ExtResource("7_gpeyy")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.67188, -0.984654, 7.46895)
+
+[node name="wall5" parent="NavigationRegion3D/Node3D" instance=ExtResource("7_gpeyy")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.641071, -0.970906, 7.46828)
+
+[node name="wall6" parent="NavigationRegion3D/Node3D" instance=ExtResource("7_gpeyy")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.53499, -0.970906, 4.56343)
+
+[node name="Enemy" parent="." instance=ExtResource("6_ftiy3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.15464, 0, -6.16441)

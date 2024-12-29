@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://bl5i8yk70snux"]
+
+[ext_resource type="Script" path="res://Scripts/Player.cs" id="1_a1nti"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_f6hvi"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ojddj"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sn1xr"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 2.08
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_a1nti")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_f6hvi")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_ojddj")
+surface_material_override/0 = SubResource("StandardMaterial3D_sn1xr")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.668079, 0.74409, 0, -0.74409, 0.668079, 0, 3.21941, 2.29045)
+
+[node name="RayCast3D" type="RayCast3D" parent="Camera3D"]
+target_position = Vector3(0, 0, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_energy = 1.97
+light_size = 0.242

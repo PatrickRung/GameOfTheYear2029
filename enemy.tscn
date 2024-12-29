@@ -1,0 +1,41 @@
+[gd_scene load_steps=6 format=3 uid="uid://ljhepes8o04v"]
+
+[ext_resource type="Script" path="res://Scripts/Enemy.cs" id="1_lbwtg"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_kmf0l"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sfebe"]
+albedo_color = Color(1, 0, 0, 0.211765)
+metallic = 0.92
+metallic_specular = 0.0
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_oaoix"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_vubv7"]
+viewport_path = NodePath("SubViewport")
+
+[node name="Enemy" type="CharacterBody3D"]
+script = ExtResource("1_lbwtg")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_kmf0l")
+surface_material_override/0 = SubResource("StandardMaterial3D_sfebe")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_oaoix")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="ProgressBar" type="ProgressBar" parent="SubViewport"]
+offset_left = 34.0
+offset_top = 19.0
+offset_right = 38.0
+offset_bottom = 46.0
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.804749, 0.593616, 0, -0.593616, 0.804749, 0, 1.71969, 0)
+texture = SubResource("ViewportTexture_vubv7")
+region_enabled = true
+region_rect = Rect2(0, 0, 69.5895, 64.303)
