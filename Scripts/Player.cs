@@ -13,7 +13,7 @@ public partial class Player : CharacterBody3D
 	public Camera3D Camera;
 	
 	//we will have documentation in a file to correlate items to numbers
-	public int[] inventory = new int[4];
+	public String[] inventory = new String[4];
 	private Sprite2D Item1, Item2, Item3, Item4;
 
 	public override void _Ready() {
@@ -24,6 +24,9 @@ public partial class Player : CharacterBody3D
 		healthBar = GetNode<ProgressBar>("/root/Game/CanvasLayer/healthBar");
 		Camera = GetNode<Camera3D>("/root/Game/Player/Camera3D");
 		healthBar.Value = health;
+		for(int i = 0; i < inventory.Length; i++) {
+			inventory[i] = "NULL";
+		}
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -67,6 +70,28 @@ public partial class Player : CharacterBody3D
 	}
 
 	public void updateItemBar() {
-		Item1.Texture = (Texture2D)GD.Load("res://itemTextures/Untitled.png");
+		String location = "res://itemTextures/" + inventory[0] + ".png";
+		Item1.Texture = (Texture2D)GD.Load(location);
+		location = "res://itemTextures/" + inventory[1] + ".png";
+		Item2.Texture = (Texture2D)GD.Load(location);
+		location = "res://itemTextures/" + inventory[2] + ".png";
+		Item3.Texture = (Texture2D)GD.Load(location);
+		location = "res://itemTextures/" + inventory[3] + ".png";
+		GD.Print(location);
+		Item4.Texture = (Texture2D)GD.Load(location);
+	}
+
+
+	//returns evicted item as string
+	public String addItem(String itemName) {
+		String evicted = "Nothing";
+		for(int i = 0; i < 4; i++) {
+			if(inventory[i] == "NULL") {
+				inventory[i] = itemName;
+				return evicted;
+			}
+		}
+		inventory[0] = itemName;
+		return inventory[0];
 	}
 }

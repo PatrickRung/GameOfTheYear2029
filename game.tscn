@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://d02deaimivk0"]
+[gd_scene load_steps=13 format=3 uid="uid://d02deaimivk0"]
 
 [ext_resource type="Script" path="res://Scripts/Game.cs" id="1_8ii4x"]
 [ext_resource type="PackedScene" uid="uid://bl5i8yk70snux" path="res://player.tscn" id="2_kgmmf"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://ddruo7ovobm37" path="res://health_pot.tscn" id="5_d234c"]
 [ext_resource type="PackedScene" uid="uid://ljhepes8o04v" path="res://enemy.tscn" id="6_ftiy3"]
 [ext_resource type="PackedScene" uid="uid://df4r8hetfpyxl" path="res://wall.tscn" id="7_gpeyy"]
+[ext_resource type="PackedScene" uid="uid://dm48thbak1v3m" path="res://knife.tscn" id="8_kc2uc"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_vvtwc"]
 vertices = PackedVector3Array(-5.25, -1.23436, -10.5, -3.25, -1.23436, -10.5, -3.25, -1.23436, -24.5, -5.5, -1.23436, -9.75, -24.5, -1.23436, -24.5, -24.5, -1.23436, -9.75, 4.5, -1.23436, -10.5, 4.5, -1.23436, -24.5, 6.5, -1.23436, -10.5, 6.75, -1.23436, -9.75, 24.5, -1.23436, -9.75, 24.5, -1.23436, -24.5, -3.5, -1.23436, 6.5, -3.5, -1.23436, 5, -4.25, -1.23436, 4.75, -5.25, -1.23436, 6.5, -5.5, -1.23436, 7.5, -4.25, -1.23436, -6.75, -5.25, -1.23436, -8.75, -3.5, -1.23436, -7, -3.5, -1.23436, -8.75, -24.5, -1.23436, 7.5, 4.25, -1.23436, -8.75, 4.25, -1.23436, -7, 5, -1.23436, -6.75, 6.5, -1.23436, -8.75, 12.5, -1.23436, 3.75, 24.5, -1.23436, 4.75, 12.75, -1.23436, 4.75, 5, -1.23436, 3.75, -2.5, -1.23436, 4.75, -2.5, -1.23436, -6.75, 3.25, -1.23436, -6.75, 0.75, -1.23436, 3.75, 5, -1.23436, 6.5, 5.25, -1.23436, 5.5, 0.5, -1.23436, 5.25, 3.25, -1.23436, 3.75, 6.75, -1.23436, 6.75, 12.5, -1.23436, 5.5, 6.5, -1.23436, 8.25, 5, -1.23436, 8.25, 5.25, -1.23436, 24.5, 24.5, -1.23436, 24.5, -4, -1.23436, 24.5, -3.75, -1.23436, 8.25, -5.25, -1.23436, 8.25, -24.5, -1.23436, 24.5)
@@ -102,3 +103,6 @@ transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.5349
 
 [node name="Enemy" parent="." instance=ExtResource("6_ftiy3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.15464, 0, -6.16441)
+
+[node name="Knife" parent="." instance=ExtResource("8_kc2uc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.89529, -1.73634, 0.893448)

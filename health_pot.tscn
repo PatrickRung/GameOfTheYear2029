@@ -1,13 +1,13 @@
 [gd_scene load_steps=4 format=3 uid="uid://ddruo7ovobm37"]
 
-[ext_resource type="Script" path="res://Scripts/HealthPot.cs" id="1_qn51w"]
+[ext_resource type="Script" path="res://Scripts/Item.cs" id="1_msh6x"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_iphe0"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_quhy7"]
 
 [node name="HealthPot" type="Area3D"]
-script = ExtResource("1_qn51w")
+script = ExtResource("1_msh6x")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 shape = SubResource("CylinderShape3D_iphe0")
