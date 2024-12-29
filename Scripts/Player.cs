@@ -16,6 +16,9 @@ public partial class Player : CharacterBody3D
 	public String[] inventory = new String[4];
 	private Sprite2D Item1, Item2, Item3, Item4;
 
+	//to be instantiated nodes, make sure to preload
+	PackedScene shortRangedReach;
+
 	public override void _Ready() {
 		Item1 = GetNode<Sprite2D>("/root/Game/CanvasLayer/Item1");
 		Item2 = GetNode<Sprite2D>("/root/Game/CanvasLayer/Item2");
@@ -24,6 +27,7 @@ public partial class Player : CharacterBody3D
 		healthBar = GetNode<ProgressBar>("/root/Game/CanvasLayer/healthBar");
 		Camera = GetNode<Camera3D>("/root/Game/Player/Camera3D");
 		healthBar.Value = health;
+		shortRangedReach = GD.Load<PackedScene>("res://short_ranged_slash.tscn");
 		for(int i = 0; i < inventory.Length; i++) {
 			inventory[i] = "NULL";
 		}
@@ -65,7 +69,13 @@ public partial class Player : CharacterBody3D
 
 		Velocity = velocity;
 		MoveAndSlide();
-		
+
+		//Attacking
+		if(Input.IsActionPressed("left_click")) {
+			Area3D currAttack = (Area3D)shortRangedReach.Instantiate();
+			AddChild(currAttack);
+			currAttack.GlobalPosition = new Vector3(Position.X, Position.Y, Position.Z);
+		}
 
 	}
 
