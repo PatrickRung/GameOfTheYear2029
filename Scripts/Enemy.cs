@@ -27,4 +27,12 @@ public partial class Enemy : CharacterBody3D
 
 		MoveAndSlide();
 	}
+
+	public void dealDamae(int damage) {
+		health -= damage;
+		progressBar.Value = health;
+		if(health <= 0) {
+			QueueFree();
+		}
+	}
 }

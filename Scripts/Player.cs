@@ -11,6 +11,8 @@ public partial class Player : CharacterBody3D
 	//Node declaration and access
 	public ProgressBar healthBar;
 	public Camera3D Camera;
+
+	private Node melee2D;
 	
 	//we will have documentation in a file to correlate items to numbers
 	public String[] inventory = new String[4];
@@ -18,6 +20,8 @@ public partial class Player : CharacterBody3D
 
 	//to be instantiated nodes, make sure to preload
 	PackedScene shortRangedReach;
+
+
 
 	public override void _Ready() {
 		Item1 = GetNode<Sprite2D>("/root/Game/CanvasLayer/Item1");
@@ -31,6 +35,7 @@ public partial class Player : CharacterBody3D
 		for(int i = 0; i < inventory.Length; i++) {
 			inventory[i] = "NULL";
 		}
+		updateItemBar();
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -71,10 +76,10 @@ public partial class Player : CharacterBody3D
 		MoveAndSlide();
 
 		//Attacking
-		if(Input.IsActionPressed("left_click")) {
-			Area3D currAttack = (Area3D)shortRangedReach.Instantiate();
-			AddChild(currAttack);
-			currAttack.GlobalPosition = new Vector3(Position.X, Position.Y, Position.Z);
+		if(Input.IsActionJustReleased("left_click")) {
+			melee2D = (Area3D)shortRangedReach.Instantiate();
+			AddChild(melee2D);
+			((Area3D)melee2D).Position = direction;
 		}
 
 	}
