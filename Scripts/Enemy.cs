@@ -16,8 +16,10 @@ public partial class Enemy : CharacterBody3D
 		progressBar.Value = health;
 	}
 
-	public override void _PhysicsProcess(double delta)
+	public override async void _PhysicsProcess(double delta)
 	{
+		//wait for next frame to do nav mesh code because navmesh does not generate on first frame
+		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 		nav_agent.TargetPosition = ((CharacterBody3D)GetNode("/root/Game/Player")).Position;
 		Vector3 direction = nav_agent.GetNextPathPosition() - GlobalPosition;
 		direction = direction.Normalized();
@@ -31,7 +33,7 @@ public partial class Enemy : CharacterBody3D
 	private void _on_attack_range_body_entered(Node3D body) {
 		GD.Print("test");
 		if(body.Name.Equals("Player")) {
-			((Player)body).dealDamae(100);
+			((Player)body).dealDamae(50);
 		}
 	}
 

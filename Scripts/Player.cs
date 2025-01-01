@@ -103,6 +103,16 @@ public partial class Player : CharacterBody3D
 			}
 		}
 
+		//Inventory
+		if(Input.IsActionJustReleased("slot_one")) {
+
+		} else if(Input.IsActionJustReleased("slot_two")){
+
+		} else if(Input.IsActionJustReleased("slot_three")){
+
+		} else if(Input.IsActionJustReleased("slot_four")){
+
+		}
 
 
 	}
