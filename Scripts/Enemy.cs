@@ -27,6 +27,13 @@ public partial class Enemy : CharacterBody3D
 
 		MoveAndSlide();
 	}
+	
+	private void _on_attack_range_body_entered(Node3D body) {
+		GD.Print("test");
+		if(body.Name.Equals("Player")) {
+			((Player)body).dealDamae(100);
+		}
+	}
 
 	public void dealDamae(int damage) {
 		health -= damage;

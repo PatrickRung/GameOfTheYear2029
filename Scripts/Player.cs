@@ -132,4 +132,12 @@ public partial class Player : CharacterBody3D
 		inventory[0] = itemName;
 		return inventory[0];
 	}
+
+	public void dealDamae(int damage) {
+		health -= damage;
+		healthBar.Value = health;
+		if(health <= 0) {
+			GetTree().ReloadCurrentScene();
+		}
+	}
 }
