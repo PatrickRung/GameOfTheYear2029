@@ -8,13 +8,25 @@ public partial class Player : CharacterBody3D
 	public const float reachDistance = 1000;
 	public const float JumpVelocity = 4.5f;
 	public int health = 100;
+	//smaller the number of the attack speed the faster
+	private double attackSpeed = 1.5;
 	//Node declaration and access
 	public ProgressBar healthBar;
 	public Camera3D Camera;
+
+	//melee data
+	private Node melee2D;
+	private bool attacked;
+	private double meleeTimer;
 	
 	//we will have documentation in a file to correlate items to numbers
 	public String[] inventory = new String[4];
 	private Sprite2D Item1, Item2, Item3, Item4;
+
+	//to be instantiated nodes, make sure to preload
+	PackedScene shortRangedReach;
+
+
 
 	public override void _Ready() {
 		Item1 = GetNode<Sprite2D>("/root/Game/CanvasLayer/Item1");
@@ -24,9 +36,13 @@ public partial class Player : CharacterBody3D
 		healthBar = GetNode<ProgressBar>("/root/Game/CanvasLayer/healthBar");
 		Camera = GetNode<Camera3D>("/root/Game/Player/Camera3D");
 		healthBar.Value = health;
+		shortRangedReach = GD.Load<PackedScene>("res://short_ranged_slash.tscn");
 		for(int i = 0; i < inventory.Length; i++) {
 			inventory[i] = null;
 		}
+		updateItemBar();
+		attacked = false;
+		meleeTimer = 0;
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -65,7 +81,39 @@ public partial class Player : CharacterBody3D
 
 		Velocity = velocity;
 		MoveAndSlide();
-		
+
+		//Attacking
+		if(Input.IsActionJustReleased("left_click") && !attacked) {
+			attacked = true;
+			melee2D = (Area3D)shortRangedReach.Instantiate();
+			AddChild(melee2D);
+			if(direction.Equals(new Vector3(0,0,0))) {
+				((Area3D)melee2D).Position = new Vector3(0,0,-1);
+			}
+			else {
+				((Area3D)melee2D).Position = direction;
+			}
+		}
+
+		if(attacked) {
+			meleeTimer += delta;
+			if(meleeTimer >= attackSpeed) {
+				attacked = false;
+				meleeTimer = 0;
+			}
+		}
+
+		//Inventory
+		if(Input.IsActionJustReleased("slot_one")) {
+
+		} else if(Input.IsActionJustReleased("slot_two")){
+
+		} else if(Input.IsActionJustReleased("slot_three")){
+
+		} else if(Input.IsActionJustReleased("slot_four")){
+
+		}
+
 
 	}
 
@@ -93,5 +141,13 @@ public partial class Player : CharacterBody3D
 		}
 		inventory[0] = itemName;
 		return inventory[0];
+	}
+
+	public void dealDamae(int damage) {
+		health -= damage;
+		healthBar.Value = health;
+		if(health <= 0) {
+			GetTree().ReloadCurrentScene();
+		}
 	}
 }

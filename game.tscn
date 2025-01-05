@@ -65,7 +65,7 @@ offset_bottom = -16.7
 grow_vertical = 0
 
 [node name="HealthPot" parent="." instance=ExtResource("5_d234c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.98615, -1.73634, -5.24943)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.98615, -0.73634, -5.24943)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00862694, -0.0749493, -0.0749855)
