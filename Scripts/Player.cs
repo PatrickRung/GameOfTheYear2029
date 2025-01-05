@@ -25,7 +25,7 @@ public partial class Player : CharacterBody3D
 		Camera = GetNode<Camera3D>("/root/Game/Player/Camera3D");
 		healthBar.Value = health;
 		for(int i = 0; i < inventory.Length; i++) {
-			inventory[i] = "NULL";
+			inventory[i] = null;
 		}
 	}
 
@@ -86,7 +86,7 @@ public partial class Player : CharacterBody3D
 	public String addItem(String itemName) {
 		String evicted = "Nothing";
 		for(int i = 0; i < 4; i++) {
-			if(inventory[i] == "NULL") {
+			if(inventory[i] == null ) {
 				inventory[i] = itemName;
 				return evicted;
 			}
