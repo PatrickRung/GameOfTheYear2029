@@ -18,6 +18,7 @@ public partial class Player : CharacterBody3D
 	private Node melee2D;
 	private bool attacked;
 	private double meleeTimer;
+	private Vector3 nonZeroDir;
 	
 	//we will have documentation in a file to correlate items to numbers
 	public itemAttributes[] inventory = new itemAttributes[4];
@@ -56,6 +57,7 @@ public partial class Player : CharacterBody3D
 		attacked = false;
 		meleeTimer = 0;
 		spotHeld = 0;
+		nonZeroDir = new Vector3(0, 0, -1);
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -85,6 +87,7 @@ public partial class Player : CharacterBody3D
 		{
 			velocity.X = direction.X * Speed;
 			velocity.Z = direction.Z * Speed;
+			nonZeroDir = direction;
 		}
 		else
 		{
@@ -103,12 +106,7 @@ public partial class Player : CharacterBody3D
 				attacked = true;
 				melee2D = (Area3D)shortRangedReach.Instantiate();
 				AddChild(melee2D);
-				if(direction.Equals(new Vector3(0,0,0))) {
-					((Area3D)melee2D).Position = new Vector3(0,0,-1);
-				}
-				else {
-					((Area3D)melee2D).Position = direction;
-				}
+				((Area3D)melee2D).Position = nonZeroDir;
 			}
 			else if(Input.IsActionJustReleased("left_click") && inventory[spotHeld].isConsumable) {
 				//Healing
