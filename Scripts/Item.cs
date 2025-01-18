@@ -3,16 +3,12 @@ using System;
 
 public partial class Item : Area3D
 {
-	public override void _Ready()
-	{
-
-	}
+	public itemAttributes currItemAttributes;
 	
 	public void _on_body_entered(Node3D body) {
 		if(body.Name.Equals("Player")) {
 			Player playerScript = body as Player;
-			playerScript.addItem(Name);
-			playerScript.updateItemBar();
+			playerScript.addItem(currItemAttributes);
 			QueueFree(); 
 			
 		}
