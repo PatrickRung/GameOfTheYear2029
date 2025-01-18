@@ -25,8 +25,22 @@ public partial class Player : CharacterBody3D
 
 	//to be instantiated nodes, make sure to preload
 	PackedScene shortRangedReach;
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+	
+	// stores the last checkpoint that our player has visited
+	private Vector3 lastCheckpoint;
+	private bool isDead = false; // tells us whether our character has died recently
+>>>>>>> Stashed changes
 
+=======
+	
+	// stores the last checkpoint that our player has visited
+	private Vector3 lastCheckpoint;
+	private bool isDead = false; // tells us whether our character has died recently
+>>>>>>> Stashed changes
 
 	public override void _Ready() {
 		Item1 = GetNode<Sprite2D>("/root/Game/CanvasLayer/Item1");
@@ -43,10 +57,24 @@ public partial class Player : CharacterBody3D
 		updateItemBar();
 		attacked = false;
 		meleeTimer = 0;
+<<<<<<< Updated upstream
+=======
+		spotHeld = 0;
+
+		//holds the initial checkpoint that our player starts at
+		lastCheckpoint = GlobalPosition;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 	}
 
 	public override void _PhysicsProcess(double delta)
 	{
+		if(isDead) {
+			GD.Print("Player Died");
+			Respawn();
+		}
 		Vector3 velocity = Velocity;
 
 		// Add the gravity.
@@ -143,11 +171,31 @@ public partial class Player : CharacterBody3D
 		return inventory[0];
 	}
 
+
+	// Might be better to chagne this to damageDealt, so that we understand it's damage being dealt to our player
+	/*
+		This method removes a value of health points from our health bar depending on the integer value inputted. If the damage dealt
+		results in our characters health dropping below or equal to 0 we kill the character, respawn all enemies, and respawn player
+		at last known checkpoint with their inventory still intact. 
+	*/
 	public void dealDamae(int damage) {
 		health -= damage;
 		healthBar.Value = health;
 		if(health <= 0) {
-			GetTree().ReloadCurrentScene();
+			isDead = true;
+			// GetTree().ReloadCurrentScene();
 		}
+	}
+
+	private void Respawn() {
+		GlobalPosition = lastCheckpoint;
+		Velocity = Vector3.Zero;
+		isDead = false;
+		GD.Print("Player's position changed to last known checkpoint");
+	}
+
+	public void onCheckpointActivated(Vector3 checkpointPosition) {
+		lastCheckpoint = checkpointPosition;
+		GD.Print("Players last known checkpoint changed");
 	}
 }

@@ -1,4 +1,12 @@
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 [gd_scene load_steps=13 format=3 uid="uid://d02deaimivk0"]
+=======
+[gd_scene load_steps=18 format=3 uid="uid://d02deaimivk0"]
+>>>>>>> Stashed changes
+=======
+[gd_scene load_steps=18 format=3 uid="uid://d02deaimivk0"]
+>>>>>>> Stashed changes
 
 [ext_resource type="Script" path="res://Scripts/Game.cs" id="1_8ii4x"]
 [ext_resource type="PackedScene" uid="uid://bl5i8yk70snux" path="res://player.tscn" id="2_kgmmf"]
@@ -8,6 +16,15 @@
 [ext_resource type="PackedScene" uid="uid://ljhepes8o04v" path="res://enemy.tscn" id="6_ftiy3"]
 [ext_resource type="PackedScene" uid="uid://df4r8hetfpyxl" path="res://wall.tscn" id="7_gpeyy"]
 [ext_resource type="PackedScene" uid="uid://dm48thbak1v3m" path="res://knife.tscn" id="8_kc2uc"]
+<<<<<<< Updated upstream
+=======
+[ext_resource type="Script" path="res://Scripts/HealthPot.cs" id="8_prs1f"]
+[ext_resource type="Script" path="res://Scripts/Knife.cs" id="9_8f1ed"]
+[ext_resource type="PackedScene" uid="uid://ctxw3rrunlqi2" path="res://checkpoint.tscn" id="11_y5a67"]
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_vvtwc"]
 vertices = PackedVector3Array(-5.25, -1.23436, -10.5, -3.25, -1.23436, -10.5, -3.25, -1.23436, -24.5, -5.5, -1.23436, -9.75, -24.5, -1.23436, -24.5, -24.5, -1.23436, -9.75, 4.5, -1.23436, -10.5, 4.5, -1.23436, -24.5, 6.5, -1.23436, -10.5, 6.75, -1.23436, -9.75, 24.5, -1.23436, -9.75, 24.5, -1.23436, -24.5, -3.5, -1.23436, 6.5, -3.5, -1.23436, 5, -4.25, -1.23436, 4.75, -5.25, -1.23436, 6.5, -5.5, -1.23436, 7.5, -4.25, -1.23436, -6.75, -5.25, -1.23436, -8.75, -3.5, -1.23436, -7, -3.5, -1.23436, -8.75, -24.5, -1.23436, 7.5, 4.25, -1.23436, -8.75, 4.25, -1.23436, -7, 5, -1.23436, -6.75, 6.5, -1.23436, -8.75, 12.5, -1.23436, 3.75, 24.5, -1.23436, 4.75, 12.75, -1.23436, 4.75, 5, -1.23436, 3.75, -2.5, -1.23436, 4.75, -2.5, -1.23436, -6.75, 3.25, -1.23436, -6.75, 0.75, -1.23436, 3.75, 5, -1.23436, 6.5, 5.25, -1.23436, 5.5, 0.5, -1.23436, 5.25, 3.25, -1.23436, 3.75, 6.75, -1.23436, 6.75, 12.5, -1.23436, 5.5, 6.5, -1.23436, 8.25, 5, -1.23436, 8.25, 5.25, -1.23436, 24.5, 24.5, -1.23436, 24.5, -4, -1.23436, 24.5, -3.75, -1.23436, 8.25, -5.25, -1.23436, 8.25, -24.5, -1.23436, 24.5)
@@ -21,6 +38,11 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 3, 2), PackedInt32Arr
 albedo_color = Color(0.29219, 0.29219, 0.29219, 1)
 metallic = 1.0
 metallic_specular = 1.0
+
+[sub_resource type="Environment" id="Environment_15mhv"]
+ambient_light_source = 3
+
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_sfb3y"]
 
 [node name="Game" type="Node3D"]
 script = ExtResource("1_8ii4x")
@@ -65,7 +87,7 @@ offset_bottom = -16.7
 grow_vertical = 0
 
 [node name="HealthPot" parent="." instance=ExtResource("5_d234c")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.98615, -0.73634, -5.24943)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.98615, -1.73634, -5.24943)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00862694, -0.0749493, -0.0749855)
@@ -662,7 +684,30 @@ transform = Transform3D(-4.37114e-08, 0, 23, 0, 1, 0, -1, 0, -1.00536e-06, -0.11
 transform = Transform3D(-4.37114e-08, 0, 12.0831, 0, 1, 0, -1, 0, -5.28167e-07, -0.118, 0, 64.5618)
 
 [node name="Enemy" parent="." instance=ExtResource("6_ftiy3")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.2767, 0, 36.0539)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.815, 0, -33.898)
+<<<<<<< Updated upstream
+=======
+
+[node name="HealthPot" parent="." instance=ExtResource("5_d234c")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.98615, -0.73634, -5.24943)
+script = ExtResource("8_prs1f")
+>>>>>>> Stashed changes
 
 [node name="Knife" parent="." instance=ExtResource("8_kc2uc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.89529, -1.73634, 0.893448)
+<<<<<<< Updated upstream
+=======
+script = ExtResource("9_8f1ed")
+
+[node name="AmbientLighting" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_15mhv")
+camera_attributes = SubResource("CameraAttributesPractical_sfb3y")
+
+[node name="PrisonCells" type="Node" parent="."]
+
+[node name="cell1" parent="PrisonCells" instance=ExtResource("11_y5a67")]
+transform = Transform3D(19.075, 0, 0, 0, 19.075, 0, 0, 0, 19.075, -16.3342, 0, -40.9271)
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
