@@ -1,0 +1,27 @@
+[gd_scene load_steps=2 format=3 uid="uid://x4ryp5yyad8x"]
+
+[ext_resource type="Script" path="res://scripts/text_manager.cs" id="1_os3vg"]
+
+[node name="DialogueScreen" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="DialogueBox" type="Panel" parent="."]
+offset_left = -431.0
+offset_top = 16.0
+offset_right = 424.0
+offset_bottom = 296.0
+metadata/_edit_use_anchors_ = true
+
+[node name="DialogueText" type="RichTextLabel" parent="DialogueBox"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.001
+anchor_top = 0.029
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 63.855
+offset_top = 15.88
+offset_right = -168.0
+offset_bottom = -24.0
+script = ExtResource("1_os3vg")
