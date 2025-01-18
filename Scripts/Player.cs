@@ -18,29 +18,20 @@ public partial class Player : CharacterBody3D
 	private Node melee2D;
 	private bool attacked;
 	private double meleeTimer;
+	private Vector3 nonZeroDir;
 	
 	//we will have documentation in a file to correlate items to numbers
-	public String[] inventory = new String[4];
+	public itemAttributes[] inventory = new itemAttributes[4];
 	private Sprite2D Item1, Item2, Item3, Item4;
+	private Sprite2D[] selectedBar;	
+	int spotHeld;
 
 	//to be instantiated nodes, make sure to preload
 	PackedScene shortRangedReach;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 
-=======
-	
 	// stores the last checkpoint that our player has visited
 	private Vector3 lastCheckpoint;
 	private bool isDead = false; // tells us whether our character has died recently
->>>>>>> Stashed changes
-
-=======
-	
-	// stores the last checkpoint that our player has visited
-	private Vector3 lastCheckpoint;
-	private bool isDead = false; // tells us whether our character has died recently
->>>>>>> Stashed changes
 
 	public override void _Ready() {
 		Item1 = GetNode<Sprite2D>("/root/Game/CanvasLayer/Item1");
@@ -48,25 +39,31 @@ public partial class Player : CharacterBody3D
 		Item3 = GetNode<Sprite2D>("/root/Game/CanvasLayer/Item3");
 		Item4 = GetNode<Sprite2D>("/root/Game/CanvasLayer/Item4");
 		healthBar = GetNode<ProgressBar>("/root/Game/CanvasLayer/healthBar");
+		int counter = 0;
+		selectedBar = new Sprite2D[4];
+		foreach (Node currNode in GetNode("/root/Game/CanvasLayer/SelectedHolder").GetChildren()) {
+			selectedBar[counter] = ((Sprite2D)currNode);
+			counter++;
+		}
 		Camera = GetNode<Camera3D>("/root/Game/Player/Camera3D");
 		healthBar.Value = health;
 		shortRangedReach = GD.Load<PackedScene>("res://short_ranged_slash.tscn");
 		for(int i = 0; i < inventory.Length; i++) {
-			inventory[i] = null;
+			inventory[i] = new itemAttributes("Null", false, false);
 		}
+
+		//updates item bar to have the right items held and hand selected
 		updateItemBar();
+		selectedItemBarHeld();
+
+		//must be asigned
 		attacked = false;
 		meleeTimer = 0;
-<<<<<<< Updated upstream
-=======
 		spotHeld = 0;
-
+		nonZeroDir = new Vector3(0, 0, -1);
 		//holds the initial checkpoint that our player starts at
 		lastCheckpoint = GlobalPosition;
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
+
 	}
 
 	public override void _PhysicsProcess(double delta)
@@ -100,6 +97,7 @@ public partial class Player : CharacterBody3D
 		{
 			velocity.X = direction.X * Speed;
 			velocity.Z = direction.Z * Speed;
+			nonZeroDir = direction;
 		}
 		else
 		{
@@ -111,16 +109,22 @@ public partial class Player : CharacterBody3D
 		MoveAndSlide();
 
 		//Attacking
-		if(Input.IsActionJustReleased("left_click") && !attacked) {
-			attacked = true;
-			melee2D = (Area3D)shortRangedReach.Instantiate();
-			AddChild(melee2D);
-			if(direction.Equals(new Vector3(0,0,0))) {
-				((Area3D)melee2D).Position = new Vector3(0,0,-1);
+		if(Input.IsActionJustReleased("left_click")) {
+			if(!attacked && inventory[spotHeld].isWeapon) {
+				//Attacking
+				//if the player cooldown is off and the current item equiped is a weapon allow attacking
+				attacked = true;
+				melee2D = (Area3D)shortRangedReach.Instantiate();
+				AddChild(melee2D);
+				((Area3D)melee2D).Position = nonZeroDir;
 			}
-			else {
-				((Area3D)melee2D).Position = direction;
+			else if(Input.IsActionJustReleased("left_click") && inventory[spotHeld].isConsumable) {
+				//Healing
+				dealDamae(-inventory[spotHeld].healValue);
+				inventory[spotHeld] = new itemAttributes("Null", false, false); 
+				updateItemBar();
 			}
+
 		}
 
 		if(attacked) {
@@ -132,43 +136,59 @@ public partial class Player : CharacterBody3D
 		}
 
 		//Inventory
+		//Inventory
 		if(Input.IsActionJustReleased("slot_one")) {
-
+			spotHeld = 0;
+			selectedItemBarHeld();
 		} else if(Input.IsActionJustReleased("slot_two")){
-
+			spotHeld = 1;
+			selectedItemBarHeld();
 		} else if(Input.IsActionJustReleased("slot_three")){
-
+			spotHeld = 2;
+			selectedItemBarHeld();
 		} else if(Input.IsActionJustReleased("slot_four")){
-
+			spotHeld = 3;
+			selectedItemBarHeld();
 		}
 
-
+	}
+	public void selectedItemBarHeld() {
+		for(int i = 0; i < 4; i++) {
+			if(i != spotHeld) {
+				selectedBar[i].Visible = false;
+			}
+			else {
+				selectedBar[i].Visible = true;
+			}
+		}
 	}
 
 	public void updateItemBar() {
-		String location = "res://itemTextures/" + inventory[0] + ".png";
+		String location = "res://itemTextures/" + inventory[0].name + ".png";
 		Item1.Texture = (Texture2D)GD.Load(location);
-		location = "res://itemTextures/" + inventory[1] + ".png";
+		location = "res://itemTextures/" + inventory[1].name + ".png";
 		Item2.Texture = (Texture2D)GD.Load(location);
-		location = "res://itemTextures/" + inventory[2] + ".png";
+		location = "res://itemTextures/" + inventory[2].name + ".png";
 		Item3.Texture = (Texture2D)GD.Load(location);
-		location = "res://itemTextures/" + inventory[3] + ".png";
+		location = "res://itemTextures/" + inventory[3].name + ".png";
 		GD.Print(location);
 		Item4.Texture = (Texture2D)GD.Load(location);
 	}
 
 
 	//returns evicted item as string
-	public String addItem(String itemName) {
+	public String addItem(itemAttributes itemName) {
 		String evicted = "Nothing";
 		for(int i = 0; i < 4; i++) {
-			if(inventory[i] == null ) {
+			if(inventory[i].name == "Null") {
 				inventory[i] = itemName;
+				updateItemBar();
 				return evicted;
 			}
 		}
 		inventory[0] = itemName;
-		return inventory[0];
+		updateItemBar();
+		return inventory[0].name;
 	}
 
 
