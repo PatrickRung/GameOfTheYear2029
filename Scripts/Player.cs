@@ -26,7 +26,14 @@ public partial class Player : CharacterBody3D
 	//to be instantiated nodes, make sure to preload
 	PackedScene shortRangedReach;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+	
+	// stores the last checkpoint that our player has visited
+	private Vector3 lastCheckpoint;
+	private bool isDead = false; // tells us whether our character has died recently
+>>>>>>> Stashed changes
 
 =======
 	
@@ -56,6 +63,9 @@ public partial class Player : CharacterBody3D
 
 		//holds the initial checkpoint that our player starts at
 		lastCheckpoint = GlobalPosition;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 	}
 
