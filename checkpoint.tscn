@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctxw3rrunlqi2"]
+
+[ext_resource type="Script" path="res://Scripts/Checkpoint.cs" id="1_1mvrx"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ir3a3"]
+
+[node name="Checkpoint" type="Area3D"]
+script = ExtResource("1_1mvrx")
+
+[node name="RespawnPoint" type="Marker3D" parent="."]
+transform = Transform3D(10, 0, 0, 0, 10, 0, 0, 0, 10, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_ir3a3")
