@@ -7,7 +7,8 @@ public partial class Player : CharacterBody3D
 	public const float Speed = 5.0f;
 	public const float reachDistance = 1000;
 	public const float JumpVelocity = 4.5f;
-	public int health = 100;
+	private const int MAXHEALTH = 100;
+	public int health = MAXHEALTH;
 	//smaller the number of the attack speed the faster
 	private double attackSpeed = 1.5;
 	//Node declaration and access
@@ -31,7 +32,8 @@ public partial class Player : CharacterBody3D
 
 	// stores the last checkpoint that our player has visited
 	private Vector3 lastCheckpoint;
-	private bool isDead = false; // tells us whether our character has died recently
+	public bool isDead = false; // tells us whether our character has died recently
+	public bool respawned = false; // tells us if the player has respawned recently. Set to false by outside function
 
 	public override void _Ready() {
 		Item1 = GetNode<Sprite2D>("/root/Game/CanvasLayer/Item1");
@@ -208,9 +210,12 @@ public partial class Player : CharacterBody3D
 	}
 
 	private void Respawn() {
+		respawned = true;
 		GlobalPosition = lastCheckpoint;
 		Velocity = Vector3.Zero;
 		isDead = false;
+		health = MAXHEALTH;
+		this.healthBar.Value = health;
 		GD.Print("Player's position changed to last known checkpoint");
 	}
 

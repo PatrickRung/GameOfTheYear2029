@@ -5,15 +5,19 @@ public partial class Enemy : CharacterBody3D
 {
 	public const int Speed = 2;
 	public const float accel = 10;
+	public const int MAXHEALTH = 100;
 	public NavigationAgent3D nav_agent;
-	public int health = 100;
+	public int health = MAXHEALTH;
 	public ProgressBar progressBar;
+	public Vector3 spawnArea; 
+
 	public override void _Ready()
 	{
 		base._Ready();
 		nav_agent = (NavigationAgent3D)GetNode("NavigationAgent3D");
 		progressBar = (ProgressBar)GetNode("SubViewport/ProgressBar");
 		progressBar.Value = health;
+		spawnArea = GlobalPosition;
 	}
 
 	public override async void _PhysicsProcess(double delta)
@@ -25,7 +29,6 @@ public partial class Enemy : CharacterBody3D
 		direction = direction.Normalized();
 
 		Velocity = Velocity.Lerp(direction * Speed, accel * (float)delta);
-
 
 		MoveAndSlide();
 	}
@@ -40,8 +43,5 @@ public partial class Enemy : CharacterBody3D
 	public void dealDamae(int damage) {
 		health -= damage;
 		progressBar.Value = health;
-		if(health <= 0) {
-			QueueFree();
-		}
 	}
 }
