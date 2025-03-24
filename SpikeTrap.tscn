@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://bxvo1p51iwlbg"]
+
+[ext_resource type="Script" path="res://Scripts/SpikeTrap.cs" id="1_1gsvf"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_nbrea"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8jfrs"]
+size = Vector3(1, 1, 6.41846)
+
+[node name="SpikeTrapObject" type="Node3D"]
+
+[node name="SpikeTrap" type="MeshInstance3D" parent="."]
+transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 0.5, 0, 0, 0)
+mesh = SubResource("BoxMesh_nbrea")
+script = ExtResource("1_1gsvf")
+
+[node name="Area3D" type="Area3D" parent="SpikeTrap"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SpikeTrap/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.70731)
+shape = SubResource("BoxShape3D_8jfrs")
+
+[connection signal="body_entered" from="SpikeTrap/Area3D" to="SpikeTrap" method="_on_area_3d_body_entered"]
