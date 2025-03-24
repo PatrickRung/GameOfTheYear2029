@@ -685,8 +685,8 @@ transform = Transform3D(-4.37114e-08, 0, 12.0831, 0, 1, 0, -1, 0, -5.28167e-07, 
 
 [node name="Traps" type="Node" parent="NavigationRegion3D"]
 
-[node name="Node3D" parent="NavigationRegion3D/Traps" instance=ExtResource("11_4mp6x")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -4.95539, -0.428185, -1.30044)
+[node name="SpikeTrap" parent="NavigationRegion3D/Traps" instance=ExtResource("11_4mp6x")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -7.21918, 0.185254, -1.30044)
 
 [node name="Enemy" parent="." instance=ExtResource("6_ftiy3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -63.2767, 0, 36.0539)
