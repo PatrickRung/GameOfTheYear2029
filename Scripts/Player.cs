@@ -8,6 +8,12 @@ public partial class Player : CharacterBody3D
 	public const float reachDistance = 1000;
 	public const float JumpVelocity = 4.5f;
 	public int health = 100;
+	private int stamina = 100;
+
+
+	// how fast our player regeneretes stamina
+	private double regenSpeed = 1.5;
+	private double regenTimer = 0;
 	//smaller the number of the attack speed the faster
 	private double attackSpeed = 1.5;
 	//Node declaration and access
@@ -61,7 +67,7 @@ public partial class Player : CharacterBody3D
 	}
 
 	public override void _PhysicsProcess(double delta)
-	{
+	{	
 		Vector3 velocity = Velocity;
 
 		// Add the gravity.
@@ -100,13 +106,17 @@ public partial class Player : CharacterBody3D
 
 
 		if(Input.IsActionJustReleased("left_click")) {
-			if(!attacked && inventory[spotHeld].isWeapon) {
+			if(!attacked && inventory[spotHeld].isWeapon && this.stamina >= 30) {
 				//Attacking
 				//if the player cooldown is off and the current item equiped is a weapon allow attacking
 				attacked = true;
 				melee2D = (Area3D)shortRangedReach.Instantiate();
 				AddChild(melee2D);
 				((Area3D)melee2D).Position = nonZeroDir;
+				
+				//if the player has enough stamina left he will execute the (jab) attack, and reduce the stamina 
+				this.stamina -= 30;
+				GD.Print("lost stamina:" + this.stamina);
 			}
 			else if(Input.IsActionJustReleased("left_click") && inventory[spotHeld].isConsumable) {
 				//Healing
@@ -126,6 +136,14 @@ public partial class Player : CharacterBody3D
 			}
 		}
 
+		if(this.stamina < 100) {
+			regenTimer += delta;
+			if(regenTimer >= regenSpeed) {
+				this.stamina += 5;
+				regenTimer = 0;
+			}
+		}
+
 		//Inventory
 		if(Input.IsActionJustReleased("slot_one")) {
 			spotHeld = 0;
@@ -140,6 +158,7 @@ public partial class Player : CharacterBody3D
 			spotHeld = 3;
 			selectedItemBarHeld();
 		}
+		
 		
 
 	}
