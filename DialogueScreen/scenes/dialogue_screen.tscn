@@ -25,3 +25,5 @@ offset_top = 15.88
 offset_right = -168.0
 offset_bottom = -24.0
 script = ExtResource("1_os3vg")
+FilePath = "res://text/test.txt"
+charactersPerSecond = 5.0
