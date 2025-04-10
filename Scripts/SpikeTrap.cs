@@ -37,7 +37,7 @@ public partial class SpikeTrap : MeshInstance3D
 			SpikeAudio.Play();
 			if(inHitBox != null && inHitBox.Name.Equals("Player")) {
 				Player playerObject = (Player)inHitBox;
-				playerObject.dealDamae(20);
+				playerObject.dealDamage(20);
 				
 			}
 		}

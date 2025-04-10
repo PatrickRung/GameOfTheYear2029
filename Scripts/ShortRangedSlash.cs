@@ -20,7 +20,7 @@ public partial class ShortRangedSlash : Area3D
 
 	public void _on_body_entered(Node3D hit) {
 		if(hit.Name.Equals("Enemy")) {
-			((Enemy)hit).dealDamae(damage);
+			((Enemy)hit).dealDamage(damage);
 		}
 	}
 }

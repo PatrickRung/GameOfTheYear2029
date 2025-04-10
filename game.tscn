@@ -74,20 +74,47 @@ position = Vector2(285, 50)
 scale = Vector2(0.485, 0.485)
 texture = ExtResource("3_u47sr")
 
-[node name="Maxresdefault" type="Sprite2D" parent="CanvasLayer"]
-position = Vector2(1872, 90)
-scale = Vector2(0.129125, 0.234722)
-texture = ExtResource("4_jsx35")
+[node name="ControlHUD" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="healthBar" type="ProgressBar" parent="CanvasLayer"]
+[node name="ProgressBars" type="VBoxContainer" parent="CanvasLayer/ControlHUD"]
+layout_mode = 1
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = 30.0
-offset_top = -93.0
-offset_right = 154.465
-offset_bottom = -16.7
+offset_top = -167.0
+offset_right = 250.0
+offset_bottom = -17.0
 grow_vertical = 0
+
+[node name="staminaBar" type="ProgressBar" parent="CanvasLayer/ControlHUD/ProgressBars"]
+custom_minimum_size = Vector2(200, 40)
+layout_mode = 2
+
+[node name="healthBar" type="ProgressBar" parent="CanvasLayer/ControlHUD/ProgressBars"]
+custom_minimum_size = Vector2(200, 100)
+layout_mode = 2
+
+[node name="MiniMap" type="HBoxContainer" parent="CanvasLayer/ControlHUD"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -207.0
+offset_top = 5.0
+offset_right = -7.0
+offset_bottom = 205.0
+grow_horizontal = 0
+
+[node name="Maxresdefault" type="Sprite2D" parent="CanvasLayer/ControlHUD/MiniMap"]
+position = Vector2(111, 89)
+scale = Vector2(0.129125, 0.234722)
+texture = ExtResource("4_jsx35")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00862694, -0.0749493, -0.0749855)

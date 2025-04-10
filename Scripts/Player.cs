@@ -3,21 +3,26 @@ using System;
 
 public partial class Player : CharacterBody3D
 {
-	//assignables
+	//Character movement
 	public const float Speed = 5.0f;
 	public const float reachDistance = 1000;
 	public const float JumpVelocity = 4.5f;
+
+	//Character progressBars
 	public int health = 100;
 	private int stamina = 100;
 
 
-	// how fast our player regeneretes stamina
+	// Stamina regeneration
 	private double regenSpeed = 1.5;
 	private double regenTimer = 0;
+
 	//smaller the number of the attack speed the faster
 	private double attackSpeed = 1.5;
-	//Node declaration and access
+	
+	//Player Viewing
 	public ProgressBar healthBar;
+	public ProgressBar staminaBar;
 	public Camera3D Camera;
 
 	//melee data
@@ -37,11 +42,14 @@ public partial class Player : CharacterBody3D
 
 
 	public override void _Ready() {
+		// Accessess all of the elements in the HUD
 		Item1 = GetNode<Sprite2D>("/root/Game/CanvasLayer/Item1");
 		Item2 = GetNode<Sprite2D>("/root/Game/CanvasLayer/Item2");
 		Item3 = GetNode<Sprite2D>("/root/Game/CanvasLayer/Item3");
 		Item4 = GetNode<Sprite2D>("/root/Game/CanvasLayer/Item4");
-		healthBar = GetNode<ProgressBar>("/root/Game/CanvasLayer/healthBar");
+		healthBar = GetNode<ProgressBar>("/root/Game/CanvasLayer/ControlHUD/ProgressBars/healthBar");
+		staminaBar = GetNode<ProgressBar>("/root/Game/CanvasLayer/ControlHUD/ProgressBars/staminaBar");
+
 		int counter = 0;
 		selectedBar = new Sprite2D[4];
 		foreach (Node currNode in GetNode("/root/Game/CanvasLayer/SelectedHolder").GetChildren()) {
@@ -50,6 +58,7 @@ public partial class Player : CharacterBody3D
 		}
 		Camera = GetNode<Camera3D>("/root/Game/Player/Camera3D");
 		healthBar.Value = health;
+		staminaBar.Value = stamina;
 		shortRangedReach = GD.Load<PackedScene>("res://short_ranged_slash.tscn");
 		for(int i = 0; i < inventory.Length; i++) {
 			inventory[i] = new itemAttributes("NULL", false, false);
@@ -59,7 +68,7 @@ public partial class Player : CharacterBody3D
 		updateItemBar();
 		selectedItemBarHeld();
 
-		//must be asigned
+		//must be assigned
 		attacked = false;
 		meleeTimer = 0;
 		spotHeld = 0;
@@ -84,7 +93,7 @@ public partial class Player : CharacterBody3D
 			//velocity.Y = JumpVelocity;
 		//}
 
-		// Get the input direction and handle the movement/deceleration.
+		// Get the input direction and handle the movement/deceleration.		
 		// As good practice, you should replace UI actions with custom gameplay actions.
 		//Changed to WASD
 		Vector2 inputDir = Input.GetVector("key_left", "key_right", "key_up", "key_down");
@@ -107,27 +116,30 @@ public partial class Player : CharacterBody3D
 
 		if(Input.IsActionJustReleased("left_click")) {
 			if(!attacked && inventory[spotHeld].isWeapon && this.stamina >= 30) {
-				//Attacking
-				//if the player cooldown is off and the current item equiped is a weapon allow attacking
+				// Attacking
+				// if the player cooldown is off and a weapon is equipped, allow attacking
 				attacked = true;
 				melee2D = (Area3D)shortRangedReach.Instantiate();
 				AddChild(melee2D);
 				((Area3D)melee2D).Position = nonZeroDir;
 				
-				//if the player has enough stamina left he will execute the (jab) attack, and reduce the stamina 
+				// if the player has enough stamina left he will execute the 
+				// (jab) attack, and reduce the stamina 
 				this.stamina -= 30;
+				staminaBar.Value = this.stamina;
 				GD.Print("lost stamina:" + this.stamina);
 			}
-			else if(Input.IsActionJustReleased("left_click") && inventory[spotHeld].isConsumable) {
+			else if(Input.IsActionJustReleased("left_click") 
+							&& inventory[spotHeld].isConsumable) {
 				//Healing
-				dealDamae(-inventory[spotHeld].healValue);
+				dealDamage(-inventory[spotHeld].healValue);
 				inventory[spotHeld] = new itemAttributes("NULL", false, false); 
 				updateItemBar();
 			}
 
 		}
 
-		
+		// If our player is attacked, disable our player's ability to attack momentarily
 		if(attacked) {
 			meleeTimer += delta;
 			if(meleeTimer >= attackSpeed) {
@@ -136,15 +148,18 @@ public partial class Player : CharacterBody3D
 			}
 		}
 
+		// As our player decides to attack, we will slowly regenerate the stamina
+		// only if the stamina is below the max threshold
 		if(this.stamina < 100) {
 			regenTimer += delta;
 			if(regenTimer >= regenSpeed) {
 				this.stamina += 5;
 				regenTimer = 0;
 			}
+			staminaBar.Value = this.stamina;
 		}
 
-		//Inventory
+		// Inventory
 		if(Input.IsActionJustReleased("slot_one")) {
 			spotHeld = 0;
 			selectedItemBarHeld();
@@ -162,6 +177,8 @@ public partial class Player : CharacterBody3D
 		
 
 	}
+
+
 	public void selectedItemBarHeld() {
 		for(int i = 0; i < 4; i++) {
 			if(i != spotHeld) {
@@ -173,6 +190,8 @@ public partial class Player : CharacterBody3D
 		}
 	}
 
+	// @function: Updates the player's inventory showing 
+	// images of what the player holds in the HUD
 	public void updateItemBar() {
 		String location = "res://itemTextures/" + inventory[0].name + ".png";
 		Item1.Texture = (Texture2D)GD.Load(location);
@@ -200,7 +219,12 @@ public partial class Player : CharacterBody3D
 		return inventory[0].name;
 	}
 
-	public void dealDamae(int damage) {
+	// @parameter: Accepts an int value that represents the damage that
+	// our player has taken
+	// @function: Updates the player's health accordingly to the inputted
+	// damage parameter. In the case our player's health runs below or equal 
+	// to zero, we declare our player as dead, and reload the scene. 
+	public void dealDamage(int damage) {
 		health -= damage;
 		healthBar.Value = health;
 		if(health <= 0) {

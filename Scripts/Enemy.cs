@@ -33,11 +33,11 @@ public partial class Enemy : CharacterBody3D
 	private void _on_attack_range_body_entered(Node3D body) {
 		GD.Print("test");
 		if(body.Name.Equals("Player")) {
-			((Player)body).dealDamae(50);
+			((Player)body).dealDamage(50);
 		}
 	}
 
-	public void dealDamae(int damage) {
+	public void dealDamage(int damage) {
 		health -= damage;
 		progressBar.Value = health;
 		if(health <= 0) {
